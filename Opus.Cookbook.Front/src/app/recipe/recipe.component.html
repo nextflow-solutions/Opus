@@ -1,0 +1,46 @@
+<h4 class="text-center">
+ Cadastro de Receitas
+</h4>
+<br>
+<form #form="ngForm" (submit)="onSubmit(form)" autocomplete="off">
+
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="service.formData.Id">
+
+  <div class="form-group">
+    <label>Titulo:</label>
+    <input maxlength="100" name="Title" #Title="ngModel" [(ngModel)]="service.formData.Title" class="form-control" required>
+    <div class="validation-error" *ngIf="Title.invalid && Title.touched">Informe titulo da receita.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Total de pessoas a servir:</label>
+    <input (keypress)="isNumber($event)" maxlength="1" name="Portion" type="number" #Portion="ngModel" [(ngModel)]="service.formData.Portion" class="form-control" required >
+    <div class="validation-error" *ngIf="Portion.invalid && Portion.touched">Informe quantas pessoas podem ser servidas.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Calorias:</label>
+    <input (keypress)="isNumber($event)" maxlength="4" name="Calories" type="number" #Calories="ngModel" [(ngModel)]="service.formData.Calories" class="form-control" required >
+    <div class="validation-error" *ngIf="Calories.invalid && Calories.touched">Informe a quantidade de calorias.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Mode de Preparo:</label>
+    <input maxlength="300" name="PreparationMode" #PreparationMode="ngModel" [(ngModel)]="service.formData.PreparationMode" class="form-control" required >
+    <div class="validation-error" *ngIf="PreparationMode.invalid && PreparationMode.touched">Informe o modo de preparo.</div>
+  </div>
+
+  <div class="form-group">
+    <label>Ingredientes:</label>
+    <select name="Ingredients" class="form-control" style="height:250px;" multiple #Ingredients="ngModel" [(ngModel)]="service.formData.Ingredients">
+      <option *ngFor="let x of service.formData.Ingredients" [value]="x.Id">
+        {{x.Name}}
+      </option>
+  </select>
+  </div>
+
+  <div class="form-group">
+    <button type="submit" [disabled]="form.invalid" class="btn btn-lg btn-block">Salvar</button>
+  </div>
+
+</form>
